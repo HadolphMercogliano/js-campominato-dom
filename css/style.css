@@ -1,0 +1,40 @@
+/* GENERICS */
+.active {
+  /* color: black; */
+  background-color: #189ab4;
+}
+.col-100 {
+  width: calc(100% / 10);
+  height: calc(100% / 10);
+}
+.col-81 {
+  width: calc(100% / 9);
+  height: calc(100% / 9);
+}
+.col-49 {
+  width: calc(100% / 7);
+  height: calc(100% / 7);
+}
+/* HEADER */
+
+/* MAIN */
+main {
+  color: white;
+  min-height: 100vh;
+  background-color: #05445e;
+}
+#grid {
+  width: 50%;
+  aspect-ratio: 1;
+  border: 2px solid #fff;
+  flex-wrap: wrap;
+}
+.grid-element {
+  border: 1px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+/* FOOTER */
