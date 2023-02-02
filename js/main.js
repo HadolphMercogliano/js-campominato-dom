@@ -12,16 +12,27 @@
 /******************************************************
  *                        CODE ON LOAD                *
  ******************************************************/
-//creare un bottone
+
+let arrayBombe = [];
+let GameOver = false;
+let points = 0;
+
 const gridEl = document.getElementById("grid");
 // console.log(gridEl);
 
+//creare un bottone
 const playButtonEl = document.getElementById("play-button");
 playButtonEl.addEventListener("click", function () {
   const difficultySelectorEl = document.getElementById("difficulty-sel");
   const difficultyChoise = parseInt(difficultySelectorEl.value);
-  console.log(difficultyChoise);
+  // console.log(difficultyChoise);
   gridGenerator(gridEl, difficultyChoise);
+  bombGenerator(difficultyChoise);
+  points = 0;
+  GameOver = false;
+  if (points >= difficultyChoise - 17) {
+    GameOver = true;
+  }
 });
 
 /******************************************************
@@ -42,40 +53,66 @@ function gridGenerator(grid, dimension) {
     const cardEl = document.createElement("div");
     cardEl.classList.add("grid-element");
     cardEl.classList.add(`col-${dimension}`);
-
-    cardEl.innerHTML = i + 1;
+    let cardText = i + 1;
+    cardEl.innerHTML = cardText;
     grid.append(cardEl);
 
     //se si clicca su una bomba il background della cella diventa rosso e la partita termina
     //altrimenti la cella si colora di azzurro.
     cardEl.addEventListener("click", function () {
-      if (controlloBomba) {
-        cardEl.classList.add("bomb");
-        console.log(this.innerHTML);
+      let currentCard = parseInt(this.innerHTML);
+      if (controlloBomba(arrayBombe, currentCard)) {
+        for (let i = 0; i < arrayBombe.length; i++) {
+          cardEl.classList.add("bomb");
+        }
+        GameOver = true;
+        console.log(`hai perso il tuo punteggio è ${points}`);
+        this.removeEventListener("click", cardEl);
       } else {
-        this.classList.toggle("active");
-        console.log(this.innerHTML);
+        if (GameOver == false && !this.classList.contains("active")) {
+          this.classList.add("active");
+          points += 1;
+        }
       }
+      console.log(currentCard);
+      console.log(GameOver);
+      console.log(points);
     });
   }
+}
+
+/**
+ * Genero 16 numeri casuali(bombe) e li inserisco in un array
+ * @param {string} array dove inserire le bombe
+ */
+function bombGenerator(dimension) {
+  arrayBombe = [];
+  while (arrayBombe.length < 16) {
+    let randomNumber = Math.floor(Math.random() * dimension) + 1;
+    if (!arrayBombe.includes(randomNumber)) {
+      arrayBombe.push(randomNumber);
+    }
+  }
+  console.log(arrayBombe);
+}
+
+/**
+ * Controllo se il numero della card è presente nell' array(è una bomba)
+ * @param {string} array dove cercare il valore
+ * @param {int} valore numero da controllare
+ * @returns {boolean} vero o falso
+ */
+function controlloBomba(array, valore) {
+  if (array.includes(valore)) {
+    return true;
+  }
+  return false;
 }
 
 /******************************************************
  *                        PARTE 2                     *
  ******************************************************/
-// genera 16 numeri randomici e posizionali in un array dove non possono trovarsi numeri uguali.
-
-// controll nell' event listener se nella card c'è una bomba
 
 // La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero massimo possibile di numeri consentiti
 
 //Al termine della partita il software deve comunicare il punteggio(quante caselle esatte abbiamo cliccato prima di trovare una bomba)
-
-const arrayBombe = [];
-/**
- * Controllo se il numero è presente nell' array
- * @param {string} array dove cercare il valore
- * @param {int} valore numero da controllare
- * @returns {boolean} vero o falso
- */
-function controlloBomba(array, valore) {}
