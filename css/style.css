@@ -1,7 +1,10 @@
 /* GENERICS */
 .active {
-  /* color: black; */
   background-color: #189ab4;
+}
+.bomb {
+  color: black;
+  background-color: red;
 }
 .col-100 {
   width: calc(100% / 10);

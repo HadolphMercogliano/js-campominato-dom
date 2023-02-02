@@ -24,17 +24,13 @@ playButtonEl.addEventListener("click", function () {
   gridGenerator(gridEl, difficultyChoise);
 });
 
-// generare all' interno della griglia una seguenza di numeri da 1 a dimensione
-
-// aggiungere una funzione al click sulla griglia che colora lo sfondo della casella di azzurro
-// stampa in console un messaggio con il numero contenuto nella casella
-
 /******************************************************
  *                      FUNCTION                      *
  ******************************************************/
 
 // Creare una funzione che generi la griglia di gioco
 // dati i parametri {griglia, dimensione})
+
 /**
  * Generatore di elementi della griglia
  * @param {string} grid dove inserire le card
@@ -49,10 +45,37 @@ function gridGenerator(grid, dimension) {
 
     cardEl.innerHTML = i + 1;
     grid.append(cardEl);
-    // aggiungere una funzione al click sulla griglia che colora lo sfondo della casella di azzurro
+
+    //se si clicca su una bomba il background della cella diventa rosso e la partita termina
+    //altrimenti la cella si colora di azzurro.
     cardEl.addEventListener("click", function () {
-      this.classList.toggle("active");
-      console.log(this.innerHTML);
+      if (controlloBomba) {
+        cardEl.classList.add("bomb");
+        console.log(this.innerHTML);
+      } else {
+        this.classList.toggle("active");
+        console.log(this.innerHTML);
+      }
     });
   }
 }
+
+/******************************************************
+ *                        PARTE 2                     *
+ ******************************************************/
+// genera 16 numeri randomici e posizionali in un array dove non possono trovarsi numeri uguali.
+
+// controll nell' event listener se nella card c'è una bomba
+
+// La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero massimo possibile di numeri consentiti
+
+//Al termine della partita il software deve comunicare il punteggio(quante caselle esatte abbiamo cliccato prima di trovare una bomba)
+
+const arrayBombe = [];
+/**
+ * Controllo se il numero è presente nell' array
+ * @param {string} array dove cercare il valore
+ * @param {int} valore numero da controllare
+ * @returns {boolean} vero o falso
+ */
+function controlloBomba(array, valore) {}
