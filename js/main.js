@@ -63,7 +63,8 @@ function gridGenerator(grid, dimension) {
       let currentCard = parseInt(this.innerHTML);
       if (controlloBomba(arrayBombe, currentCard)) {
         for (let i = 0; i < arrayBombe.length; i++) {
-          cardEl.classList.add("bomb");
+          let currentElement = arrayBombe[i];
+          currentElement.classList.add("bomb");
         }
         GameOver = true;
         console.log(`hai perso il tuo punteggio è ${points}`);
@@ -116,3 +117,4 @@ function controlloBomba(array, valore) {
 // La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero massimo possibile di numeri consentiti
 
 //Al termine della partita il software deve comunicare il punteggio(quante caselle esatte abbiamo cliccato prima di trovare una bomba)
+function removeListener() {}
